@@ -7,10 +7,40 @@
 </head>
 <body>
 <div id="app">
-    <el-button @click="visible = true">Button</el-button>
-    <el-dialog :visible.sync="visible" title="Hello world">
-        <p>Try Element</p>
-    </el-dialog>
+    <template>
+        <!--<ul>-->
+            <!--<template v-for="item in list">-->
+                <!--<li>{{ item.id }}</li>-->
+                <!--<li>{{ item.color }}</li>-->
+                <!--<li>{{ item.newDate }}</li>-->
+                <!--<li class="divider" role="presentation"></li>-->
+            <!--</template>-->
+        <!--</ul>-->
+        <el-table
+                :data="list"
+                style="width: 100%">
+            <el-table-column
+                    prop="id"
+                    label="id"
+                    width="180">
+                <!--{{list.id}}-->
+            </el-table-column>
+            <el-table-column
+                    prop="color"
+                    label="颜色"
+                    width="180">
+                <!--{{list.color}}-->
+            </el-table-column>
+            <el-table-column
+                    prop="newdate"
+                    label="日期"
+                    width="180">
+                <!--{{list.newDate}}-->
+            </el-table-column>
+        </el-table>
+    </template>
+
+
 </div>
 </body>
 <!-- import Vue before Element -->
@@ -18,12 +48,46 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue-resource/1.5.2/vue-resource.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <script>
     new Vue({
         el: '#app',
-        data: function() {
-            return { visible: false }
+        data: {
+
+            list: []
+        },
+        //vue对象实例创建成功之后就会自动调用这个方法
+        //如果你想写的方法在舒适化的时候就被调用的话就要要用到created这个
+        created: function () {
+            this.getlist();//这里定义这个方法，vue实例之后运行到这里就调用这个函数
+
+        },
+        methods: {
+
+            async getlist () {
+                //请求服务器的api获取到品牌的数据列表
+                this.$http.get('/rest/cars').then((r)=> {
+                    // alert(r.body.message);
+                    //console.log(r.data);
+
+
+                    this.list = r.data.data;
+                    this.list = JSON.stringify(this.list);
+                    this.list = JSON.parse(this.list);
+                    console.log(this.list);
+                    for (var i = 0; i <this.list.length; i++) {
+                        // this.list.newDate = this.list.newDate.replace(/-/g,':').replace(' ',':')
+                        console.log(this.list[i].newdate);
+
+                    }
+                    return;
+
+
+                });
+            }
+
         }
-    })
+    });
 </script>
 </html>

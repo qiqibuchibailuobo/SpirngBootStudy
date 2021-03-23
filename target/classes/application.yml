@@ -25,7 +25,7 @@ spring:
     database: mysql
     show-sql: true
   thymeleaf:
-    cache: false 
+    cache: false
     check-template-location: true
     enabled: true
     encoding: UTF-8
