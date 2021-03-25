@@ -37,4 +37,11 @@ public class AjaxResponse {
         ajaxResponse.setData(obj);
         return ajaxResponse;
     }
+    public static AjaxResponse error(){
+        AjaxResponse ajaxResponse = new AjaxResponse();
+        ajaxResponse.setIsok(false);
+        ajaxResponse.setCode(500);
+        ajaxResponse.setMessage("请求失败,请检查id是否存在！");
+        return ajaxResponse;
+    }
 }

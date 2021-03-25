@@ -58,14 +58,16 @@ public class CarController {
     //@RequestMapping(value = "/cars",method = RequestMethod.PUT)
     @PutMapping("/cars")
     public AjaxResponse updateCar(@RequestBody Car car){
-        if(car.getId() == null){
-
+        if(carService.getCar(car.getId())==null){
+            return AjaxResponse.error();
+        }else {
+            carService.updateCar(car);
+            return AjaxResponse.success();
         }
 //        log.info("updateCar:"+car);
 //        carService.deleteCar(car.getId());
 //        carService.saveCar(car);
-        carService.updateCar(car);
-        return AjaxResponse.success();
+
     }
 
     //@RequestMapping(value = "/cars/{id}",method = RequestMethod.DELETE)

@@ -41,6 +41,8 @@ logging:
   level:
     cn.yq.demo: debug
 server:
+  port: 8080
+  httpPort: 8888
   ssl:
     key-store: src/main/resources/zimug-ssl-key.p12
     key-store-password: 123456

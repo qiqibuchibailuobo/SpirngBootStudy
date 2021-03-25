@@ -1,6 +1,6 @@
 package cn.yq.demo.dao;
 
-import cn.yq.demo.model.Car;
+import cn.yq.demo.generator.Car;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -19,7 +19,7 @@ public class CarJDBCDAO {
         //jdbcTemplate.update适合于insert 、update和delete操作；
         jdbcTemplate.update("INSERT INTO car(color,newDate) values(?, ?)",
                 car.getColor(),
-                car.getNewDate());
+                car.getNewdate());
     }
 
     //删除
@@ -34,7 +34,7 @@ public class CarJDBCDAO {
         //jdbcTemplate.update适合于insert 、update和delete操作；
         jdbcTemplate.update("UPDATE car SET color = ?, newDate = ?  WHERE id = ?",
                 car.getColor(),
-                car.getNewDate(),
+                car.getNewdate(),
                 car.getId());
 
     }
