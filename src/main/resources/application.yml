@@ -40,7 +40,11 @@ mybatis:
 logging:
   level:
     cn.yq.demo: debug
-
+server:
+  ssl:
+    key-store: src/main/resources/zimug-ssl-key.p12
+    key-store-password: 123456
+    key-store-type: PKCS12
 
 jasypt:
   encryptor:
