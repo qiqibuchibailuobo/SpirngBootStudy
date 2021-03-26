@@ -18,6 +18,8 @@ public class CarServiceJDBCImpl implements CarService {
     @Resource
     private CarMapper carMapper;
 
+
+
     @Override
     public void saveCar(Car car) {
 //        carJDBCDAO.save(car);
@@ -34,23 +36,24 @@ public class CarServiceJDBCImpl implements CarService {
     @Override
     @Transactional
     public void updateCar(Car car) {
-        if (car.getId() == null) {
-//            抛出异常
-            new RuntimeException("汽车编号不存在");
-        }else {
-            carJDBCDAO.updateById(car);
-        }
+//        if (car.getId() == null) {
+////            抛出异常
+//            new RuntimeException("汽车编号不存在");
+//        }else {
+//            carJDBCDAO.updateById(car);
+//        }
 //        测试回滚事务
 //        carJDBCDAO.deleteById(car.getId());
 //        carJDBCDAO.save(car);
 //                int a = 10/0;
 
-//        carMapper.updateByPrimaryKeySelective(car);
+        carMapper.updateByPrimaryKeySelective(car);
     }
 
     @Override
     public Car getCar(Integer id) {
 //        return carJDBCDAO.findById(id);
+
       return   carMapper.selectByPrimaryKey(id);
     }
 

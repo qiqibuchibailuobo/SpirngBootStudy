@@ -1,25 +1,29 @@
 package cn.yq.demo.controller;
 
-import cn.yq.demo.AjaxResponse;
+import cn.yq.demo.exception.AjaxResponse;
 import cn.yq.demo.generator.Car;
 import cn.yq.demo.service.CarService;
+import cn.yq.demo.service.ExceptionService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping("/rest")
+@CrossOrigin
 public class CarController {
     @Resource
     CarService carService;
+    @Resource
+    private ExceptionService exceptionService;
 
     //@RequestMapping(value = "/cars/{id}",method = RequestMethod.GET)
     @GetMapping("/cars/{id}")
-    public AjaxResponse getCar(@PathVariable("id")Integer id){
+    public Car getCar(@PathVariable("id")Integer id){
 
 //        List<Part> parts = new ArrayList<Part>(){{
 //            add(new Part("steel","Glass"));
@@ -33,14 +37,21 @@ public class CarController {
 //                .newDate(new Date()).build();
 //
 //        log.info("Car:"+car);
+
+//        自定义异常测试
+        if(id == 1){
+            exceptionService.systemBizError();
+        }else {
+            exceptionService.userBizError(-1);
+        }
           Car car = carService.getCar(id);
 
-        return AjaxResponse.success(car);
+        return car;
     }
 
     //@RequestMapping(value = "/cars",method = RequestMethod.POST)
     @PostMapping("/cars")
-    public AjaxResponse addCar(@RequestBody Car car){
+    public AjaxResponse addCar(@Valid @RequestBody Car car){
 
 //        log.info("addCar:"+car);
         carService.saveCar(car);
@@ -79,9 +90,9 @@ public class CarController {
     }
 
     @GetMapping("/cars")
-    public AjaxResponse getAllCar(){
+    public List<Car> getAllCar(){
         List<Car> cars = carService.getAll();
 
-        return AjaxResponse.success(cars);
+        return cars;
     }
 }

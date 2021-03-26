@@ -1,5 +1,7 @@
 package cn.yq.demo.generator;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,7 +11,7 @@ import java.util.Date;
  */
 public class Car implements Serializable {
     private Integer id;
-
+    @NotEmpty(message = "颜色不能为空")
     private String color;
 
     private Date newdate;
