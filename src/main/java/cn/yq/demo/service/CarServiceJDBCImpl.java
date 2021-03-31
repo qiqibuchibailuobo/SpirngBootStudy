@@ -1,6 +1,7 @@
 package cn.yq.demo.service;
 
 import cn.yq.demo.dao.CarJDBCDAO;
+import cn.yq.demo.generator.CarExample;
 import cn.yq.demo.generator.CarMapper;
 import cn.yq.demo.generator.Car;
 import org.springframework.stereotype.Service;
@@ -53,7 +54,10 @@ public class CarServiceJDBCImpl implements CarService {
     @Override
     public Car getCar(Integer id) {
 //        return carJDBCDAO.findById(id);
-
+//        CarExample carExample = new CarExample();
+//       String value = "%" + id  + "%";
+//        carExample.createCriteria().andColorLike(value);
+//        List<Car> car = carMapper.selectByExample(carExample);
       return   carMapper.selectByPrimaryKey(id);
     }
 

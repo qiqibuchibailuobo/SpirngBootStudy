@@ -39,11 +39,11 @@ public class CarController {
 //        log.info("Car:"+car);
 
 //        自定义异常测试
-        if(id == 1){
-            exceptionService.systemBizError();
-        }else {
-            exceptionService.userBizError(-1);
-        }
+//        if(id == 1){
+//            exceptionService.systemBizError();
+//        }else {
+//            exceptionService.userBizError(-1);
+//        }
           Car car = carService.getCar(id);
 
         return car;
@@ -68,18 +68,21 @@ public class CarController {
 
     //@RequestMapping(value = "/cars",method = RequestMethod.PUT)
     @PutMapping("/cars")
-    public AjaxResponse updateCar(@RequestBody Car car){
-        if(carService.getCar(car.getId())==null){
-            return AjaxResponse.error();
-        }else {
+    public void updateCar(@RequestBody Car car) {
+        //        自定义异常测试
+        if (carService.getCar(car.getId()) == null) {
+             exceptionService.userBizError(-1);
+
+        } else {
             carService.updateCar(car);
-            return AjaxResponse.success();
+
         }
+
 //        log.info("updateCar:"+car);
 //        carService.deleteCar(car.getId());
 //        carService.saveCar(car);
 
-    }
+        }
 
     //@RequestMapping(value = "/cars/{id}",method = RequestMethod.DELETE)
     @DeleteMapping("/cars/{id}")
