@@ -44,6 +44,13 @@ spring:
         max-wait: 1ms
         max-idle: 8
         min-idle: 0
+  cache:
+    type: redis
+    redis:
+      cache-null-values: true
+      use-key-prefix: true
+      key-prefix: boot-launch
+      time-to-live:  3600s
 mybatis:
   mapper-locations: classpath:generator/*.xml
   configuration:
