@@ -40,8 +40,36 @@
         </el-table>
     </template>
 
-
+    <el-upload
+            class="upload-demo"
+            name="uploadFile"
+            action="https://localhost:8080/upload"
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
+            :on-success="successRes"
+            :before-remove="beforeRemove"
+            multiple
+            :limit="3"
+            :on-exceed="handleExceed"
+            :file-list="fileList">
+        <el-button size="small" type="primary">点击上传</el-button>
+        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+    </el-upload>
+    <el-upload
+            class="upload-demo"
+            name="uploadFile"
+            drag
+            action="https://localhost:8080/upload/"
+            multiple>
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+    </el-upload>
 </div>
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="uploadFile" value="请选择上传文件">
+    <input type="submit" value="保存">
+</form>
 </body>
 <!-- import Vue before Element -->
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
@@ -55,7 +83,9 @@
         el: '#app',
         data: {
 
-            list: []
+            list: [],
+            fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
+            file:{}
         },
         //vue对象实例创建成功之后就会自动调用这个方法
         //如果你想写的方法在舒适化的时候就被调用的话就要要用到created这个
@@ -64,7 +94,25 @@
 
         },
         methods: {
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePreview(file) {
+                console.log(file);
+            },
+            handleExceed(files, fileList) {
+                this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+            },
+            beforeRemove(file, fileList) {
+                return this.$confirm(`确定移除 ${ file.name }？`);
+            },
+            successRes(response, file, fileList) { //文件上传成功之后
 
+                this.$message({
+                    message: response,
+                    type: 'success'
+                });
+            },
             async getlist () {
                 //请求服务器的api获取到品牌的数据列表
                 this.$http.get('/rest/cars').then((r)=> {

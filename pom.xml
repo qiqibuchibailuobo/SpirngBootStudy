@@ -141,6 +141,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+        <!--实现redis session共享-->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
@@ -172,6 +177,12 @@
             <artifactId>quarkus-junit5</artifactId>
             <version>1.12.1.Final</version>
             <scope>test</scope>
+        </dependency>
+        <!--图片保存minio-->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>7.1.0</version>
         </dependency>
         <!--<dependency>-->
             <!--<groupId>io.springfox</groupId>-->

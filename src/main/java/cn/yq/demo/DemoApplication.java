@@ -7,12 +7,14 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @SpringBootApplication()
 @MapperScan(basePackages = {"cn.yq.demo.generator"})
 @ServletComponentScan
 @EnableRedisRepositories
 @EnableCaching
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 30 * 60 * 1000)//session有效期30分钟
 public class DemoApplication {
 
     public static void main(String[] args) {

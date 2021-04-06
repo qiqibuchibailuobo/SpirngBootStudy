@@ -51,6 +51,8 @@ spring:
       use-key-prefix: true
       key-prefix: boot-launch
       time-to-live:  3600s
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.upload-path}
 mybatis:
   mapper-locations: classpath:generator/*.xml
   configuration:
@@ -69,3 +71,17 @@ server:
 jasypt:
   encryptor:
     password: root
+
+caching:
+  ttlmap:
+    car: 10
+    xxx: 20
+    yyy: 50
+
+web:
+  upload-path: D:/testFileUp/
+
+minio:
+  endpoint: http://10.78.160.1:9000/minio
+  accessKey: minioadmin
+  secretKey: minioadmin
